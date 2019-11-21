@@ -27,18 +27,19 @@ Use _Blast Radius_ to:
 
 ## Quickstart
 
-The fastest way to get up and running with *Blast Radius* is to install it with
-`pip` to your pre-existing environment:
+NOTE:  This version has been hacked to use a Go package `hcl2json` to replace
+pyhcl until it can be fixed.  Before continuing, make sure Go is installed in your system.
+You will also need to install `pipenv`.
 
 ```sh
-pip install blastradius
+make install
 ```
 
 Once installed just point *Blast Radius* at any initialized *Terraform*
 directory:
 
 ```sh
-blast-radius --serve /path/to/terraform/directory
+pipenv run blast-radius --serve /path/to/terraform/directory
 ```
 
 And you will shortly be rewarded with a browser link http://127.0.0.1:5000/.
