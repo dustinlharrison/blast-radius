@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "*"
+mypy = "*"
+
+[packages]
+requests = "==2.22.0"
+beautifulsoup4 = "==4.7.1"
+ply = ">=3.11"
+pyhcl = "==0.3.12"
+Jinja2 = "==2.10.1"
+Flask = "==1.0.3"
+
+[requires]

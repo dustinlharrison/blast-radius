@@ -5,7 +5,10 @@ import os
 import re
 
 # 3rd party libraries
-import hcl    # hashicorp configuration language (.tf)
+# Issue #55: pyhcl doesn't support terraform v0.12
+#import hcl    # hashicorp configuration language (.tf)
+import subprocess
+from pkg_resources import resource_filename
 
 class Terraform:
     """Finds terraform/hcl files (*.tf) in CWD or a supplied directory, parses
@@ -17,13 +20,17 @@ class Terraform:
         # handle the root module first...
         self.directory = directory if directory else os.getcwd()
         #print(self.directory)
-        self.config_str = ''
+        self.config_str:str = ''
         iterator = iglob( self.directory + '/*.tf')
         for fname in iterator:
             with open(fname, 'r', encoding='utf-8') as f:
                 self.config_str += f.read() + ' '
+        print(resource_filename('blastradius','bin/hcl2json'))
+        self.config_str = subprocess.getoutput(f"{resource_filename('blastradius','bin/hcl2json')} {fname}")
         config_io = io.StringIO(self.config_str)
-        self.config = hcl.load(config_io)
+        print(config_io)
+        self.config = config_io
+        #self.config = hcl.load(config_io)
 
         # then any submodules it may contain, skipping any remote modules for
         # the time being.
